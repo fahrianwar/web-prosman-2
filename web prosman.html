@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorium Proses Manufaktur UNM</title>
+    <style>
+        /* CSS Reset & Variabel */
+        :root {
+            --unm-emas: #C0A060;
+            --unm-hitam: #222;
+            --unm-hitam-terang: #333;
+            --unm-putih: #fff;
+            --unm-bg-light: #f9f9f9;
+            --unm-bg-biru: #007bff;
+            --apik-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --apik-hover-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            --apik-transisi: all 0.4s ease;
+        }
+
+        body { 
+            font-family: 'Open Sans', sans-serif; 
+            color: var(--unm-hitam-terang); 
+            margin: 0; 
+            background-color: var(--unm-bg-light); 
+            line-height: 1.6; 
+        }
+
+        img { max-width: 100%; height: auto; display: block; }
+        h1, h2, h3, h4 { font-family: 'Roboto', sans-serif; font-weight: 700; margin-top: 0; }
+        a { text-decoration: none; color: inherit; transition: var(--apik-transisi); }
+
+        /* Utilitas */
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; }
+        .text-center { text-align: center; }
+        .apik-scale:hover { transform: scale(1.03); }
+
+        /* Header */
+        header { 
+            background-color: var(--unm-putih); 
+            padding: 15px 0; 
+            border-bottom: 4px solid var(--unm-emas); 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+
+        header .container { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            gap: 20px; 
+            flex-wrap: wrap;
+        }
+
+        /* Kontainer 3 Logo */
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-group img {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-info { text-align: center; flex-grow: 1; }
+        .header-info h1 { margin: 0; font-size: 1.5em; color: var(--unm-hitam); }
+        .header-info p { margin: 2px 0 0; font-size: 0.85em; font-weight: 600; color: #555; }
+
+        nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 20px; }
+        nav a { font-weight: 600; font-size: 0.95em; color: var(--unm-hitam); }
+        nav a:hover { color: var(--unm-emas); }
+
+        /* Hero */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://lh3.googleusercontent.com/d/1BnGlwSfAcjS2K_7Ot93FaXdhPAikvMMC') center/cover no-repeat; 
+            padding: 120px 0; 
+            color: var(--unm-putih); 
+            text-align: center; 
+        }
+        .hero h2 { font-size: 2.8em; margin-bottom: 20px; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+        .hero p { font-size: 1.2em; max-width: 750px; margin: 0 auto; text-shadow: 0 1px 4px rgba(0,0,0,0.6); font-weight: 300; }
+
+        /* Tim Dosen & Laboran */
+        .section-tim { padding: 80px 0; }
+        .bg-white { background-color: var(--unm-putih); }
+        .grid-tim { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .grid-tim.laboran { max-width: 400px; margin: 40px auto 0; }
+        
+        .kartu-tim { 
+            background-color: #fff; 
+            padding: 30px 20px; 
+            border-radius: 12px; 
+            text-align: center; 
+            box-shadow: var(--apik-shadow); 
+            transition: var(--apik-transisi); 
+            border: 1px solid #eee; 
+        }
+        .kartu-tim:hover { border-color: var(--unm-emas); transform: translateY(-8px); box-shadow: var(--apik-hover-shadow); }
+        .foto-tim { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--unm-emas); margin: 0 auto 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .kartu-tim h3 { margin: 0 0 8px; font-size: 1.25em; color: var(--unm-hitam); }
+        .kartu-tim p { margin: 0 0 5px; font-size: 0.9em; color: #555; }
+        .kartu-tim .nip { font-weight: 700; color: var(--unm-emas); margin-bottom: 10px; }
+
+        /* Tim Laboran (Latar Biru) - Perbaikan Perataan Selector */
+        .bg-blue { background-color: var(--unm-bg-biru); color: #fff; }
+        .bg-blue .foto-tim { border-color: rgba(255, 255, 255, 0.8); }
+        .bg-blue .kartu-tim { background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .bg-blue .kartu-tim h3, .bg-blue .nip { color: #fff; }
+        .bg-blue .kartu-tim p { color: rgba(255, 255, 255, 0.9); }
+
+        /* Modul Pembelajaran */
+        .section-modul { padding: 80px 0; background-color: #f1f1f1; }
+        .list-modul { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 40px; }
+        .item-modul { background-color: var(--unm-putih); padding: 25px; border-radius: 8px; box-shadow: var(--apik-shadow); transition: var(--apik-transisi); border-left: 5px solid var(--unm-emas); }
+        .item-modul:hover { transform: translateY(-4px); }
+        .item-modul h4 { margin: 0 0 10px; font-size: 1.1em; color: var(--unm-hitam); }
+        
+        .btn-download-utama {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background-color: var(--unm-emas);
+            color: var(--unm-putih);
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 700;
+            transition: var(--apik-transisi);
+            box-shadow: 0 4px 15px rgba(192, 160, 96, 0.3);
+        }
+        .btn-download-utama:hover {
+            background-color: var(--unm-hitam);
+            color: var(--unm-putih);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer { background-color: var(--unm-hitam); color: #fff; padding: 40px 0; font-size: 0.85em; text-align: center; }
+        footer p { margin: 5px 0; color: rgba(255, 255, 255, 0.8); }
+        footer .logo-footer-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+        footer .logo-footer-group img { height: 45px; width: auto; filter: brightness(0.9); }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <!-- Kontainer 3 Logo Sejajar -->
+            <div class="logo-group">
+                <img src="https://lh3.googleusercontent.com/d/1MCmottWrt1TMyBm0Se77NyfU6zBW4bPu" alt="Logo UNM" class="apik-scale">
+                <img src="https://lh3.googleusercontent.com/d/1sU8lvPs5MLKa4D8mVLK5H4qHRym_Hpxf" alt="Logo Pendamping 1" class="apik-scale">
+                <img src="https://lh3.googleusercontent.com/d/1evdTjWFFw05oYfTVyoJ_ki5FXT_TIww6" alt="Logo Pendamping 2" class="apik-scale">
+            </div>
+
+            <div class="header-info">
+                <h1>UNIVERSITAS NEGERI MAKASSAR</h1>
+                <p>FAKULTAS TEKNIK | JURUSAN TEKNIK MESIN DAN INDUSTRI</p>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#beranda">Beranda</a></li>
+                    <li><a href="#tim">Tim</a></li>
+                    <li><a href="#modul">Modul</a></li>
+                    <li><a href="#kontak">Kontak</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero">
+        <div class="container">
+            <h2>PROSES MANUFAKTUR</h2>
+            <p>Laboratorium Proses Manufaktur kami fokus pada integrasi teknologi terkini untuk efisiensi produksi modern melalui pendekatan <strong>Case Method</strong>.</p>
+        </div>
+    </section>
+
+    <!-- Tim Dosen -->
+    <section id="tim" class="section-tim bg-white">
+        <div class="container">
+            <h2 class="text-center" style="color: var(--unm-hitam);">Tim Pengajar (Dosen)</h2>
+            <div class="grid-tim">
+                <div class="kartu-tim">
+                    <img src="https://lh3.googleusercontent.com/d/1hELoFqxoMd3Gr9HOR1EJ9VZ6TE7-XPQQ" alt="Dr. H. Hamzah Nur, S.Pd., M.Pd." class="foto-tim">
+                    <h3>Dr. H. Hamzah Nur, S.Pd., M.Pd.</h3>
+                    <p class="nip">NIP. XXXXXXXXXXXXX</p>
+                    <p><strong>Jabatan:</strong> Dosen Pengampu</p>
+                    <p><strong>Keahlian:</strong> Manajemen Manufaktur & Optimasi Sistem</p>
+                </div>
+                <div class="kartu-tim">
+                    <img src="https://lh3.googleusercontent.com/d/1tjtygRp_UWh53YGw3PX8rHulrBsMS3pw" alt="Ir. Ismail Aqsa, S.Pd., M.Pd." class="foto-tim">
+                    <h3>Ir. Ismail Aqsa, S.Pd., M.Pd.</h3>
+                    <p class="nip">NIP. XXXXXXXXXXXXX</p>
+                    <p><strong>Jabatan:</strong> Dosen Anggota 1</p>
+                    <p><strong>Keahlian:</strong> Desain CAD/CAM, Otomasi Mesin CNC</p>
+                </div>
+                <div class="kartu-tim">
+                    <img src="https://lh3.googleusercontent.com/d/17yz8qL3yXDSpH8S_h2SwsyJJP8p4COOW" alt="Fahri Anwar, S.T., M.T." class="foto-tim">
+                    <h3>Fahri Anwar, S.T., M.T.</h3>
+                    <p class="nip">NIP. XXXXXXXXXXXXX</p>
+                    <p><strong>Jabatan:</strong> Dosen Anggota 2</p>
+                    <p><strong>Keahlian:</strong> Metrologi Industri & Pengendalian Kualitas (SPC)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tim Laboran -->
+    <section class="section-tim bg-blue">
+        <div class="container">
+            <h2 class="text-center">Staf Teknis (Laboran)</h2>
+            <div class="grid-tim laboran">
+                <div class="kartu-tim">
+                    <img src="https://lh3.googleusercontent.com/d/1vOQ-S2E9HloLDfdYTVQ4i_b2nHVl5y3W" alt="Fadly Fachdany, S.Pd., S.T." class="foto-tim">
+                    <h3>Fadly Fachdany, S.Pd., S.T.</h3>
+                    <p class="nip">NIP. XXXXXXXXXXXXX</p>
+                    <p><strong>Keahlian:</strong> Operasi Mesin Produksi (Bubut, Frais, Bor)</p>
+                    <p><strong>Tanggung Jawab:</strong> Pemeliharaan Fasilitas & Keselamatan Kerja</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modul Pembelajaran -->
+    <section id="modul" class="section-modul">
+        <div class="container">
+            <h2 class="text-center" style="color: var(--unm-hitam);">Modul Pembelajaran & Studi Kasus (Case Study)</h2>
+            <p class="text-center" style="max-width: 750px; margin: 0 auto 30px; font-size: 0.95em; color: #555;">Integrasi teoritis dan praktis melalui modul pembelajaran interaktif berdasarkan standar Modul Proses Manufaktur (UNM, 2026).</p>
+            
+            <ul class="list-modul">
+                <li class="item-modul">
+                    <h4>1. Proses Desain & Manufaktur (BAB I)</h4>
+                    <p>Standardisasi gambar teknik, perancangan model silinder (selongsong & pin), dan integrasi sistem CAD/CAM.</p>
+                </li>
+                <li class="item-modul">
+                    <h4>2. Perencanaan Proses & Efisiensi (BAB II)</h4>
+                    <p>Perencanaan alur kerja (routing sheet) demi efisiensi lini produksi, Operation Process Chart (OPC), dan Flow Process Chart (FPC).</p>
+                </li>
+                <li class="item-modul">
+                    <h4>3. Pengukuran Kualitas (Metrologi) (BAB III)</h4>
+                    <p>Pengendalian kualitas produk menggunakan pendekatan metrologi serta statistik kualitas (SPC), dan analisis variasi data sampel.</p>
+                </li>
+                <li class="item-modul">
+                    <h4>4. Technopreneurship & Green Industry (BAB IV)</h4>
+                    <p>Inovasi teknopreneur berbasis industri hijau berkelanjutan, manajemen limbah operasional, dan efisiensi konversi energi.</p>
+                </li>
+            </ul>
+
+            <div class="text-center" style="margin-top: 40px;">
+                <a href="https://drive.google.com/file/d/1NMGikx8DQNmcolQvDWEHnVa3ROvwggfq/view?usp=drive_link" target="_blank" class="btn-download-utama">
+                    📥 Unduh Modul Lengkap Praktikum Proses Manufaktur (PDF)
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak">
+        <div class="container">
+            <div class="logo-footer-group">
+                <img src="https://lh3.googleusercontent.com/d/1MCmottWrt1TMyBm0Se77NyfU6zBW4bPu" alt="Logo UNM">
+                <img src="https://lh3.googleusercontent.com/d/1sU8lvPs5MLKa4D8mVLK5H4qHRym_Hpxf" alt="Logo 2">
+                <img src="https://lh3.googleusercontent.com/d/1evdTjWFFw05oYfTVyoJ_ki5FXT_TIww6" alt="Logo 3">
+            </div>
+            <p>&copy; 2026 Laboratorium Proses Manufaktur UNM</p>
+            <p>Jalan Daeng Tata Raya Parangtambung Makassar, Indonesia</p>
+            <p>Telp: (0411) 865677 - Fax. (0411) 861377</p>
+            <p>Laman Resmi: ptm.ft.unm.ac.id | email: ft@unm.ac.id</p>
+        </div>
+    </footer>
+
+</body>
+</html>
